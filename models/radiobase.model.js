@@ -66,7 +66,20 @@ Radiobase.create = (newRadiobase, result) => {
   };
   
   Radiobase.getAll = (regionId, result)  => {
-    sql.query(`select * from radiobases where region= '${regionId}' order by radiobase,fecha asc limit 500`, (err, res) => {
+    sql.query(`select * from radiobases where region= '${regionId}' order by radiobase,fecha asc limit 1000`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log("radiobases: ", res);
+      result(null, res);
+    });
+  };
+
+  Radiobase.getCompleteAll = result  => {
+    sql.query(`select * from radiobases order by radiobase,fecha asc limit 10000`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

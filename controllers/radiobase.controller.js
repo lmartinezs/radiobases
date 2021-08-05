@@ -16,6 +16,32 @@ exports.setRegion = async (req, res) => {
   res.send(regionStatic.getRegion());
 };
 
+exports.getCompleteAll = async (req, res) => {
+    let dates = [];
+    let regions = []; 
+    let selectedRegion = 1;   
+    try {
+      dates = await exports.getArrayDates();
+      regions = await exports.getRegions();
+    }
+    catch( err ) {
+        console.log("Error occured in one of the API call: ", err);
+    };
+    Radiobase.getCompleteAll((err, data) => {
+      if (err){
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving radiobases."
+        });
+      } else{ 
+
+        res.render('main', {layout : 'index', radioBases: data, listExists: true, config:config,fechas:dates,regions:regions,selectedRegion: selectedRegion});
+
+      }
+    });
+
+};
+
 // Retrieve all Radiobases from the database.
 exports.findAll = async (req, res) => {
     let dates = [];

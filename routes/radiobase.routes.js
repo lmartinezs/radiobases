@@ -7,6 +7,8 @@ module.exports = app => {
     // Retrieve all Radiobases
     app.get("/radiobases", radiobases.findAll);
 
+    app.get("/", radiobases.getCompleteAll);
+
     app.get("/radiobases/regions", radiobases.getRegions);
   
     // Retrieve a single Radiobase with radiobaseId
