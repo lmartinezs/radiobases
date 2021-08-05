@@ -2,7 +2,7 @@ module.exports = app => {
     const radiobases = require("../controllers/radiobase.controller.js");
         
     // Create a new Radiobase
-    app.post("/radiobases", radiobases.create);
+    //app.post("/radiobases", radiobases.create);
   
     // Retrieve all Radiobases
     app.get("/radiobases", radiobases.findAll);
@@ -17,11 +17,11 @@ module.exports = app => {
     app.get("/region/:regionId", radiobases.setRegion);
   
     // Update a Radiobase with radiobaseId
-    app.put("/radiobases/:radiobaseId", radiobases.update);
+    //app.put("/radiobases/:radiobaseId", radiobases.update);
   
     // Delete a Radiobase with radiobaseId
-    app.delete("/radiobases/:radiobaseId", radiobases.delete);
+    //app.delete("/radiobases/:radiobaseId", radiobases.delete);
   
-    // Create a new Radiobase
-    app.delete("/radiobases", radiobases.deleteAll);
+    // Create all Radiobase
+    //app.delete("/radiobases", radiobases.deleteAll);
   };

@@ -5,7 +5,7 @@ const controller = require("./radiobase.controller.js");
 const config = require("../config/config.js");
 var regionStatic = require('../utils/regionHelper.js');
 
-// Create and Save a new Radiobase
+
 exports.create = (req, res) => {
   
 };
@@ -34,15 +34,19 @@ exports.getCompleteAll = async (req, res) => {
             err.message || "Some error occurred while retrieving radiobases."
         });
       } else{ 
+        var items = []; 
+        data.forEach(radiobase => { 
+          radiobase.date = Utils.getHumanDate(radiobase.fecha);             
+          items.push(radiobase); 
+        });  
 
-        res.render('main', {layout : 'index', radioBases: data, listExists: true, config:config,fechas:dates,regions:regions,selectedRegion: selectedRegion});
+        res.render('main', {layout : 'index', radioBases: items, listExists: true, config:config,fechas:dates,regions:regions,selectedRegion: selectedRegion});
 
       }
     });
 
 };
 
-// Retrieve all Radiobases from the database.
 exports.findAll = async (req, res) => {
     let dates = [];
     let regions = []; 
@@ -69,9 +73,6 @@ exports.findAll = async (req, res) => {
           });*/
 
           res.render('radiobases', {layout : 'index', radioBases: Radiobases, listExists: true, config:config,fechas:dates,regions:regions,selectedRegion: selectedRegion});
-
-          //console.log(data);
-          //res.send(Radiobases);
         }
       });
   
@@ -125,16 +126,12 @@ exports.findOne = async (req, res) => {
           if (err.kind === "not_found") {
             message = `Not found Radiobase with id ${req.params.radiobaseId}.`;
             res.status(404).render('errorpage', {layout : 'index', message});
-            /*res.status(404).send({
-              message: `Not found Radiobase with id ${req.params.radiobaseId}.`              
-            });*/
           } else {
             res.status(500).send({
               message: "Error retrieving Radiobase with id " + req.params.radiobaseId
             });
           }
         } else {
-          //var tes = exports.getArrayDates();
        
             var items = [];            
 /*
